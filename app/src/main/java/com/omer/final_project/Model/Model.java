@@ -213,6 +213,7 @@ public class Model {
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.close();
 
+
            addPicureToGallery(imageFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

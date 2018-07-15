@@ -1,6 +1,7 @@
 package com.omer.final_project.Profile;
 
 //import android.app.Fragment;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 //import android.app.FragmentTransaction;
@@ -44,10 +45,7 @@ public class DisplayProfileFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static DisplayProfileFragment newInstance(String param1, String param2) {
         DisplayProfileFragment fragment = new DisplayProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -77,7 +75,9 @@ public class DisplayProfileFragment extends Fragment {
         userEmailTv=view.findViewById(R.id.userEmailTV);
         userFirstNameTv=view.findViewById(R.id.postUserNameTV);
         userLastNameTv=view.findViewById(R.id.lastNameTv);
-        userProfilePic=view.findViewById(R.id.profilePicIV);
+
+        userProfilePic=view.findViewById(R.id.profilePicImageView);
+
 
         Button editProfileButton=view.findViewById(R.id.editProfileButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +107,18 @@ public class DisplayProfileFragment extends Fragment {
         userEmailTv.setText(profileUser.getEmail());
         userFirstNameTv.setText(profileUser.getFirstName());
         userLastNameTv.setText(profileUser.getLastName());
+        Log.d(TAG, "displayUser: "+profileUser.getProfilePic());
+        userProfilePic.setTag(profileUser.getUserId());
+        if (profileUser.getProfilePic() != null){
+            Model.instance.getImage(profileUser.getProfilePic(), new Model.GetImageListener() {
+                @Override
+                public void onDone(Bitmap imageBitmap) {
+                    if (profileUser.getUserId().equals(userProfilePic.getTag()) && imageBitmap != null) {
+                        userProfilePic.setImageBitmap(imageBitmap);
+                    }
+                }
+            });
+        }
 
     }
 

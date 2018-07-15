@@ -1,6 +1,5 @@
 package com.omer.final_project.Profile;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.omer.final_project.Model.Model;
@@ -90,7 +88,7 @@ public class EditProfileFragment extends Fragment {
           userFirstNameEt=view.findViewById(R.id.editFirstNameEditText);
           userLastNameEt=view.findViewById(R.id.editLastNameEditText);
 
-          userProfilePic=view.findViewById(R.id.editProfilePicImageView);
+          userProfilePic=view.findViewById(R.id.profilePicImageView);
           userProfilePic.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
@@ -144,6 +142,7 @@ public class EditProfileFragment extends Fragment {
         userFirstNameEt.setText(profileUser.getFirstName());
         userLastNameEt.setText(profileUser.getLastName());
         userProfilePic.setTag(profileUser.getUserId());
+        Log.d(TAG, "displayUser: "+profileUser.getProfilePic());
         if (profileUser.getProfilePic() != null){
             Model.instance.getImage(profileUser.getProfilePic(), new Model.GetImageListener() {
                 @Override
