@@ -33,7 +33,7 @@ public class DisplayProfileFragment extends Fragment {
     private TextView userEmailTv;
     private TextView userFirstNameTv;
     private TextView userLastNameTv;
-    private ImageView userProfilePicTv;
+    private ImageView userProfilePic;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,6 +77,7 @@ public class DisplayProfileFragment extends Fragment {
         userEmailTv=view.findViewById(R.id.userEmailTV);
         userFirstNameTv=view.findViewById(R.id.postUserNameTV);
         userLastNameTv=view.findViewById(R.id.lastNameTv);
+        userProfilePic=view.findViewById(R.id.profilePicIV);
 
         Button editProfileButton=view.findViewById(R.id.editProfileButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
