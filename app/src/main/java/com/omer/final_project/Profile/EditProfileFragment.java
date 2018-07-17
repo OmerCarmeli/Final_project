@@ -1,5 +1,6 @@
 package com.omer.final_project.Profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import com.omer.final_project.Model.User;
 import com.omer.final_project.R;
 
 import static android.app.Activity.RESULT_OK;
+import static android.view.View.VISIBLE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +74,11 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onSuccess(User user) {
                 profileUser = user;
+                Activity activity = getActivity();
+                if(activity instanceof ProfileActivity){
+                    ProfileActivity myactivity = (ProfileActivity) activity;
+                    myactivity.setupToolBar();
+                }
                 displayUser();
 
             }

@@ -1,6 +1,7 @@
 package com.omer.final_project.Profile;
 
 //import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -20,6 +21,8 @@ import com.omer.final_project.Model.Model;
 import com.omer.final_project.R;
 import com.omer.final_project.Utils.BottomNavigationViewHelper;
 
+import java.util.List;
+
 
 public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
@@ -30,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        setupToolBar();
+       // setupToolBar();
         setupBottomNavigationView();
         FirebaseUser currentUser=Model.instance.getCurrentFirebaseUser();
         Log.d(TAG, "onCreate: &&&&&&&&& uid: "+currentUser.getUid());
@@ -38,11 +41,14 @@ public class ProfileActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             DisplayProfileFragment fragment=new DisplayProfileFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-            tran.add(R.id.main_container, fragment);
-           // tran.addToBackStack("");
+           // tran.setPrimaryNavigationFragment(fragment);
+            tran.add(R.id.main_container, fragment,"DisplayProfileFragment");
+            tran.addToBackStack("DisplayProfileFragment");
             tran.commit();
-        }
+            getSupportFragmentManager().executePendingTransactions();
 
+        }
+        setupToolBar();
     }
     private void setupBottomNavigationView() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavViewBar);
@@ -55,11 +61,13 @@ public class ProfileActivity extends AppCompatActivity {
     public void setupToolBarFragment(){
 
     }
-    private void setupToolBar() {
+    public void setupToolBar() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.profileToolBar);
         setSupportActionBar(toolbar);
         Log.d(TAG, "setupToolBar: =======================================================");
+
+
         ImageView logOutIV=(ImageView) findViewById(R.id.menu);
         final Intent intent=new Intent(this, LoginActivity.class);
         logOutIV.setOnClickListener(new View.OnClickListener() {
@@ -73,16 +81,30 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-/*
-        ImageView profileMenu=(ImageView) findViewById(R.id.profileMenu1);
-        profileMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(mContext,AccountSettingsActivity.class);
-                startActivity(intent);
-            }
-        });
- */
+        ImageView backAtrrow=findViewById(R.id.backimageView);
+        Fragment fragment=getSupportFragmentManager().findFragmentByTag("EditProfileFragment");
+        //fragment.isInLayout()
+        //Log.d(TAG, "***************setupToolBar: "+fragment.size());
+
+        if (fragment!=null && fragment.isVisible()){
+            backAtrrow.setVisibility(View.VISIBLE);
+            backAtrrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DisplayProfileFragment fragment=new DisplayProfileFragment();//move out the fragment
+                    FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.main_container,fragment,"DisplayProfileFragment");
+                    ft.addToBackStack("DisplayProfileFragment");
+                    ft.commit();
+                   getSupportFragmentManager().executePendingTransactions();
+                }
+            });
+        }else {
+            backAtrrow.setVisibility(View.GONE);
+        }
+
+        //if (getf)
+
 
 
     }

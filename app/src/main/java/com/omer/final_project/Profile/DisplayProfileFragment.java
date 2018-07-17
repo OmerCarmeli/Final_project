@@ -1,6 +1,7 @@
 package com.omer.final_project.Profile;
 
 //import android.app.Fragment;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -59,6 +60,7 @@ public class DisplayProfileFragment extends Fragment {
             @Override
             public void onSuccess(User user) {
                 profileUser = user;
+
                 displayUser();
 
             }
@@ -70,6 +72,7 @@ public class DisplayProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_display_profile, container, false);
+
 
         userNameTv=view.findViewById(R.id.userNametv);
         userEmailTv=view.findViewById(R.id.userEmailTV);
@@ -85,8 +88,11 @@ public class DisplayProfileFragment extends Fragment {
             public void onClick(View v) {
                 EditProfileFragment fragment=new EditProfileFragment();
                 FragmentTransaction ft=getFragmentManager().beginTransaction();
-                ft.replace(R.id.main_container,fragment);
+                ft.replace(R.id.main_container,fragment,"EditProfileFragment");
+                ft.addToBackStack("EditProfileFragment");
                 ft.commit();
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+
 
             }
         });
@@ -119,6 +125,7 @@ public class DisplayProfileFragment extends Fragment {
                 }
             });
         }
+
 
     }
 
