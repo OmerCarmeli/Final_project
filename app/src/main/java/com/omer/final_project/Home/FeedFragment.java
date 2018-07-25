@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.omer.final_project.Model.Item;
 import com.omer.final_project.Model.Model;
 import com.omer.final_project.Model.Post;
+import com.omer.final_project.Model.User;
 import com.omer.final_project.R;
 
 import java.util.LinkedList;
@@ -44,7 +45,7 @@ public class FeedFragment extends Fragment {
     MyAdapter myAdapter = new MyAdapter();
     ListView list ;
     FeedViewModel dataModel;
-
+    User postUser;
 
 
     public FeedFragment() {
@@ -169,43 +170,53 @@ public class FeedFragment extends Fragment {
             }
 
           final Post p = dataModel.getData().getValue().get(position);;
+            final View finalConvertView = convertView;
+            Model.instance.getUserFormDb(new Model.getUserListener() {
+                @Override
+                public void onSuccess(User user) {
+                    postUser = user;
 
-            TextView userName=convertView.findViewById(R.id.postUserNameTV);
-            TextView itemName=convertView.findViewById(R.id.postItemNameTV);
-            TextView itemPrice=convertView.findViewById(R.id.PostPriceTV);
-            TextView descripsionTv = convertView.findViewById(R.id.descriptionTV);
-            final ImageView userProfilePic=convertView.findViewById(R.id.postUserProfilePic);
-            final ImageView itemPhoto=convertView.findViewById(R.id.postItemPhoto);
+                    //displayUser();
 
-            userName.setText(p.getUser().getUserName());
-            itemName.setText(p.getItem().getName());
-            itemPrice.setText("Price: "+p.getItem().getPrice()+"$");
-            descripsionTv.setText(p.getItem().getDescription());
+                    TextView userName= finalConvertView.findViewById(R.id.postUserNameTV);
+                    TextView itemName= finalConvertView.findViewById(R.id.postItemNameTV);
+                    TextView itemPrice= finalConvertView.findViewById(R.id.PostPriceTV);
+                    TextView descripsionTv = finalConvertView.findViewById(R.id.descriptionTV);
+                    final ImageView userProfilePic= finalConvertView.findViewById(R.id.postUserProfilePic);
+                    final ImageView itemPhoto= finalConvertView.findViewById(R.id.postItemPhoto);
 
-            userProfilePic.setImageResource(R.drawable.ic_android);
-            userProfilePic.setTag(p.getUser().getUserId());
-            if (p.getUser().getProfilePic() != null){
-                Model.instance.getImage(p.getUser().getProfilePic(), new Model.GetImageListener() {
-                    @Override
-                    public void onDone(Bitmap imageBitmap) {
-                        if (p.getUser().getUserId().equals(userProfilePic.getTag()) && imageBitmap != null) {
-                            userProfilePic.setImageBitmap(imageBitmap);
-                        }
+                    userName.setText(postUser.getUserName());
+                    itemName.setText(p.getItem().getName());
+                    itemPrice.setText("Price: "+p.getItem().getPrice()+"$");
+                    descripsionTv.setText(p.getItem().getDescription());
+
+                    userProfilePic.setImageResource(R.drawable.ic_android);
+                    userProfilePic.setTag(postUser.getUserId());
+                    if (postUser.getProfilePic() != null){
+                        Model.instance.getImage(postUser.getProfilePic(), new Model.GetImageListener() {
+                            @Override
+                            public void onDone(Bitmap imageBitmap) {
+                                if (postUser.getUserId().equals(userProfilePic.getTag()) && imageBitmap != null) {
+                                    userProfilePic.setImageBitmap(imageBitmap);
+                                }
+                            }
+                        });
                     }
-                });
-            }
 
-            itemPhoto.setTag(p.getItem().getName());
-            if (p.getItem().getPhoto() != null){
-                Model.instance.getImage(p.getItem().getPhoto(), new Model.GetImageListener() {
-                    @Override
-                    public void onDone(Bitmap imageBitmap) {
-                        if (p.getItem().getName().equals(itemPhoto.getTag()) && imageBitmap != null) {
-                            itemPhoto.setImageBitmap(imageBitmap);
-                        }
+                    itemPhoto.setTag(p.getItem().getName());
+                    if (p.getItem().getPhoto() != null){
+                        Model.instance.getImage(p.getItem().getPhoto(), new Model.GetImageListener() {
+                            @Override
+                            public void onDone(Bitmap imageBitmap) {
+                                if (p.getItem().getName().equals(itemPhoto.getTag()) && imageBitmap != null) {
+                                    itemPhoto.setImageBitmap(imageBitmap);
+                                }
+                            }
+                        });
                     }
-                });
-            }
+                }
+            },p.getUserId());
+
 
             return convertView;
         }

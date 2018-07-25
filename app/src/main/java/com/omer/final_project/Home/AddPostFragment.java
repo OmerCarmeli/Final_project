@@ -114,7 +114,7 @@ public class AddPostFragment extends Fragment {
                 //add to firebase:
                 final Item item=new Item(name,price);
                 item.setDescription(desc);
-                final Post post=new Post(GUser,item);
+                final Post post=new Post(GUser.getUserId(),item);
                 if (imageBitmap != null) {
                     Model.instance.saveImage(imageBitmap, new Model.SaveImageListener() {
                         @Override

@@ -15,18 +15,18 @@ public class Post {
     @NonNull
     public String postId;
 
-    @Embedded
-    private User user;
-
+  //  @Embedded
+    //private User user;
+    String userId;
     @Embedded
     private Item item;
 
     public String postName;
 
 
-    public Post(User user,Item item  ){
+    public Post(String userId,Item item  ){
         this.item=item;
-        this.user=user;
+        this.userId=userId;
         this.postName=item.getName();
         this.postId=postName+ new Date().toString();
     }
@@ -50,13 +50,10 @@ public class Post {
         this.postName = postName;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    //public User getUser() { return user;}
+
+    //public void setUser(User user) {this.user = user;}
 
     public Item getItem() {
         return item;
@@ -66,6 +63,11 @@ public class Post {
         this.item = item;
     }
 
+    public String getUserId() {
+        return userId;
+    }
 
-
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }
