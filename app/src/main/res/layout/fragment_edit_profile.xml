@@ -7,7 +7,7 @@
     tools:context=".Profile.EditProfileFragment">
 
     <ImageView
-        android:id="@+id/profilePicImageView"
+        android:id="@+id/itemPhotoImageView"
         android:layout_width="291dp"
         android:layout_height="118dp"
         android:layout_marginTop="32dp"
@@ -55,10 +55,10 @@
         android:layout_marginTop="34dp"
         android:text="User name:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePicImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/itemPhotoImageView" />
 
     <EditText
-        android:id="@+id/editUserNameEditText"
+        android:id="@+id/itemNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginStart="17dp"
@@ -67,7 +67,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/profilePicImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/itemPhotoImageView" />
 
     <EditText
         android:id="@+id/editEmailEditText"
@@ -79,7 +79,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/userEmailText"
-        app:layout_constraintTop_toBottomOf="@+id/editUserNameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/itemNameEditText" />
 
     <EditText
         android:id="@+id/editFirstNameEditText"

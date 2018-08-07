@@ -1,7 +1,6 @@
 package com.omer.final_project.Profile;
 
 //import android.app.Fragment;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -79,7 +78,7 @@ public class DisplayProfileFragment extends Fragment {
         userFirstNameTv=view.findViewById(R.id.postUserNameTV);
         userLastNameTv=view.findViewById(R.id.lastNameTv);
 
-        userProfilePic=view.findViewById(R.id.profilePicImageView);
+        userProfilePic=view.findViewById(R.id.itemPhotoImageView);
 
 
         Button editProfileButton=view.findViewById(R.id.editProfileButton);

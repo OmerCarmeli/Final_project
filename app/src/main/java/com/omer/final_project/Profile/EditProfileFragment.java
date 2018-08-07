@@ -23,7 +23,6 @@ import com.omer.final_project.Model.User;
 import com.omer.final_project.R;
 
 import static android.app.Activity.RESULT_OK;
-import static android.view.View.VISIBLE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,7 +46,8 @@ public class EditProfileFragment extends Fragment {
     private EditText userFirstNameEt;
     private EditText userLastNameEt;
     private ImageView userProfilePic;
-
+    Bitmap imageBitmap;
+    boolean photoChanged=false;
 
     public EditProfileFragment() {
         // Required empty public constructor
@@ -90,12 +90,12 @@ public class EditProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-          userNameEt=view.findViewById(R.id.editUserNameEditText);
+          userNameEt=view.findViewById(R.id.itemNameEditText);
           userEmailEt=view.findViewById(R.id.editEmailEditText);
           userFirstNameEt=view.findViewById(R.id.editFirstNameEditText);
           userLastNameEt=view.findViewById(R.id.editLastNameEditText);
 
-          userProfilePic=view.findViewById(R.id.profilePicImageView);
+          userProfilePic=view.findViewById(R.id.itemPhotoImageView);
           userProfilePic.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
@@ -112,22 +112,33 @@ public class EditProfileFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.d(TAG, "onClick: update button clicked");
 
                 final User user=new User(userNameEt.getText().toString(),userEmailEt.getText().toString());
                 user.setFirstName(userFirstNameEt.getText().toString());
                 user.setLastName(userLastNameEt.getText().toString());
-                if (imageBitmap != null) {
+                user.setItems(profileUser.getItems());
+                user.setUserId(profileUser.getUserId());
+               // Log.d(TAG, "onClick: Imagebitmap: "+imageBitmap.toString());
+
+                if (photoChanged) {
                     Model.instance.saveImage(imageBitmap, new Model.SaveImageListener() {
                         @Override
                         public void onDone(String url) {
-                            profileUser.setProfilePic(url);
-                            Log.d(TAG, "%%%%%%%%%%onDone: "+profileUser.getProfilePic());
-                            Model.instance.addUser(profileUser);
+                            user.setProfilePic(url);
+                           // user.setItems();
+                            Log.d(TAG, "%%%%%%%%%%onDone photo changed: ");
+                            Model.instance.addUser(user);
                             getActivity().getSupportFragmentManager().popBackStack();
                             //finish();
                         }
                     });
+                }else {
+                    user.setProfilePic(profileUser.getProfilePic());
+                    Log.d(TAG, "%%%%%%%%%%onDone no change: ");
+                    Model.instance.addUser(user);
+                    getActivity().getSupportFragmentManager().popBackStack();
+
                 }
             }
         });
@@ -163,7 +174,7 @@ public class EditProfileFragment extends Fragment {
 
     }
 
-    Bitmap imageBitmap;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -172,6 +183,7 @@ public class EditProfileFragment extends Fragment {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             userProfilePic.setImageBitmap(imageBitmap);
+            photoChanged=true;
         }
     }
     @Override
