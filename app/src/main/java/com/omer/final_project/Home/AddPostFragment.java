@@ -1,12 +1,10 @@
 package com.omer.final_project.Home;
 
-import android.app.FragmentManager;
 //import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 
-import android.content.Context;
-import android.content.Intent;
+        import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,15 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.omer.final_project.Model.Item;
+        import com.omer.final_project.Model.Item;
 import com.omer.final_project.Model.Model;
-import com.omer.final_project.Model.ModelFirebase;
-import com.omer.final_project.Model.Post;
+        import com.omer.final_project.Model.Post;
 import com.omer.final_project.Model.User;
-import com.omer.final_project.Profile.EditProfileFragment;
-import com.omer.final_project.R;
+        import com.omer.final_project.R;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -85,7 +79,7 @@ public class AddPostFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_add_post, container, false);
         final EditText itemName=view.findViewById(R.id.nameEditText);
-        final EditText itemPrice=view.findViewById(R.id.priceEditText);
+        final EditText itemPrice=view.findViewById(R.id.itemPriceEditText);
         final EditText description=view.findViewById(R.id.descriptionEditText);
 
         itemPicIV=view.findViewById(R.id.itemPicIV);
