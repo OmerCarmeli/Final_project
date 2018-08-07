@@ -19,13 +19,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.omer.final_project.Model.Item;
 import com.omer.final_project.Model.Model;
 import com.omer.final_project.Model.Post;
 import com.omer.final_project.Model.User;
 import com.omer.final_project.R;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -179,11 +177,11 @@ public class FeedFragment extends Fragment {
                     //displayUser();
 
                     TextView userName= finalConvertView.findViewById(R.id.postUserNameTV);
-                    TextView itemName= finalConvertView.findViewById(R.id.postItemNameTV);
-                    TextView itemPrice= finalConvertView.findViewById(R.id.PostPriceTV);
+                    TextView itemName= finalConvertView.findViewById(R.id.itemDNameTV);
+                    TextView itemPrice= finalConvertView.findViewById(R.id.itemDPriceTV);
                     TextView descripsionTv = finalConvertView.findViewById(R.id.descriptionTV);
                     final ImageView userProfilePic= finalConvertView.findViewById(R.id.postUserProfilePic);
-                    final ImageView itemPhoto= finalConvertView.findViewById(R.id.postItemPhoto);
+                    final ImageView itemPhoto= finalConvertView.findViewById(R.id.itemDPhoto);
 
                     userName.setText(postUser.getUserName());
                     itemName.setText(p.getItem().getName());

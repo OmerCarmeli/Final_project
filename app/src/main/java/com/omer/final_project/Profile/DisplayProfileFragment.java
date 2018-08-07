@@ -97,6 +97,20 @@ public class DisplayProfileFragment extends Fragment {
             }
         });
 
+        Button myItemsButton=view.findViewById(R.id.itemsButton);
+        myItemsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DisplayItemsFragment fragment=new DisplayItemsFragment();
+                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                ft.replace(R.id.main_container,fragment,"DisplayItemsFragment");
+                ft.addToBackStack("DisplayItemsFragment");
+                ft.commit();
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+
+            }
+        });
+
         return view;
     }
 

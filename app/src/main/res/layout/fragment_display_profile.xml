@@ -63,12 +63,12 @@
             app:layout_constraintTop_toBottomOf="@+id/userNametv" />
 
         <Button
-            android:id="@+id/photosButton"
+            android:id="@+id/itemsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:text="Photos"
+            android:text="My Items"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
         <Button

@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 public class Item {
 
     private String itemId;
@@ -19,7 +21,8 @@ public class Item {
 
         this.name = name;
         this.price = price;
-        setItemId(name);
+       // setItemId(name);
+        this.itemId=name+ new Date().toString();
     }
 
     public String getName() {

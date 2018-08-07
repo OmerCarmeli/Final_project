@@ -28,7 +28,8 @@ public class Post {
         this.item=item;
         this.userId=userId;
         this.postName=item.getName();
-        this.postId=postName+ new Date().toString();
+        //this.postId=postName+ new Date().toString();
+        this.postId=item.getItemId();
     }
     public Post(){
 

@@ -42,11 +42,11 @@ public class ModelFirebase {
 */
 
     public void addPost(Post post){
-        mDatabase.child("Posts").child(post.getPostName()).setValue(post);
+        mDatabase.child("Posts").child(post.getPostId()).setValue(post);
     }
 
     public void removePost(Post post){
-        mDatabase.child("Posts").child(post.getPostName()).removeValue();
+        mDatabase.child("Posts").child(post.getPostId()).removeValue();
     }
 
     public void addUserToDb(User user){
@@ -86,7 +86,7 @@ public class ModelFirebase {
 
     public void addItemToUser(User user ,Item item){
 
-        mDatabase.child("Users").child(user.getUserId()).child("items").child(item.getName()).setValue(item);
+        mDatabase.child("Users").child(user.getUserId()).child("items").child(item.getItemId()).setValue(item);
 
     }
     public void signOut(){

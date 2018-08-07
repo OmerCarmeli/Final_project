@@ -24,7 +24,7 @@
         android:layout_marginTop="14dp"
         android:text="Comments"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postItemPhoto" />
+        app:layout_constraintTop_toBottomOf="@+id/itemDPhoto" />
 
     <Button
         android:id="@+id/likeButton"
@@ -56,8 +56,8 @@
         android:layout_marginTop="2dp"
         android:text="description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/postItemPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/PostPriceTV" />
+        app:layout_constraintStart_toEndOf="@+id/itemDPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/itemDPriceTV" />
 
     <Button
         android:id="@+id/addCommentButton"
@@ -72,7 +72,7 @@
         app:layout_constraintStart_toEndOf="@+id/newCommentEditText" />
 
     <ImageView
-        android:id="@+id/postItemPhoto"
+        android:id="@+id/itemDPhoto"
         android:layout_width="96dp"
         android:layout_height="85dp"
         android:layout_marginStart="8dp"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/PostPriceTV"
+        android:id="@+id/itemDPriceTV"
         android:layout_width="147dp"
         android:layout_height="26dp"
         android:layout_marginEnd="118dp"
@@ -101,11 +101,11 @@
         android:text="Price:"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/postItemPhoto"
+        app:layout_constraintStart_toEndOf="@+id/itemDPhoto"
         app:layout_constraintTop_toBottomOf="@+id/postUserNameTV" />
 
     <TextView
-        android:id="@+id/postItemNameTV"
+        android:id="@+id/itemDNameTV"
         android:layout_width="123dp"
         android:layout_height="34dp"
         android:layout_marginEnd="16dp"
