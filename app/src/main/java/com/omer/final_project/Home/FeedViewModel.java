@@ -2,7 +2,6 @@ package com.omer.final_project.Home;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-
 import com.omer.final_project.Model.Model;
 import com.omer.final_project.Model.Post;
 

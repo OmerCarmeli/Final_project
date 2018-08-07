@@ -111,7 +111,7 @@ public class Model {
             //setValue(AppLocalDb.db.studentDao().getAll());
             setValue(new LinkedList<Post>());
         }
-    }  /////End of LiveData class//////////////////
+    }  /////End of PostLiveData class//////////////////
     PostListData postListData = new PostListData();
 
     public LiveData<List<Post>> getAllPosts(){
@@ -122,7 +122,69 @@ public class Model {
         modelFirebase.cancellGetAllPosts();
     }
 
-/*
+
+    class ItemListData extends MutableLiveData<List<Item>> {
+
+        @Override
+        protected void onActive() {
+            super.onActive();
+            // new thread tsks
+            // 1. get the students list from the local DB
+            ItemAsynchDao.getAll(new ItemAsynchDao.ItemAsynchDaoListener<List<Item>>() {
+                @Override
+                public void onComplete(List<Item> data) {
+                    // 2. update the live data with the new student list
+                    setValue(data);
+                    Log.d("TAG","got students from local DB " + data.size());
+
+                    // 3. get the items list from firebase
+                    modelFirebase.getMyItems(new ModelFirebase.GetMyItemsListener() {
+                        @Override
+                        public void onSuccess(List<Item> itemslist) {
+                            // 4. update the live data with the new student list
+                            setValue(itemslist);
+                            Log.d("TAG","got students from firebase " + itemslist.size());
+
+                            // 5. update the local DB
+                            ItemAsynchDao.insertAll(itemslist, new ItemAsynchDao.ItemAsynchDaoListener<Boolean>() {
+                                @Override
+                                public void onComplete(Boolean data) {
+                                    Log.d(TAG, "onComplete: insert data to ROOM!");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+            modelFirebase.cancellGetMyItems();
+            Log.d("TAG","cancellGetMyItems");
+        }
+
+        public ItemListData() {
+            super();
+
+            setValue(new LinkedList<Item>());
+        }
+    }  /////End of ItemLiveData class//////////////////
+
+    ItemListData itemListData = new ItemListData();
+    public LiveData<List<Item>> getMyItems(){
+        return itemListData;
+    }
+
+    public void cancellGetMyItems() {
+        modelFirebase.cancellGetMyItems();
+    }
+
+
+
+
+/* only firebase no live data and Room
     public interface GetAllPostsListener{
         void onSuccess(List<Post>postsList);
     }

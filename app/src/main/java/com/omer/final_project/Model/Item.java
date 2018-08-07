@@ -6,8 +6,10 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 
+@Entity
 public class Item {
-
+    @PrimaryKey
+    @NonNull
     private String itemId;
     private String name;
     private String photo;

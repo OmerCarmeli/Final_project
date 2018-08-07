@@ -126,6 +126,42 @@ public class ModelFirebase {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         stRef.removeEventListener(eventListener);
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    interface GetMyItemsListener{
+        public void onSuccess(List<Item> itemslist);
+    }
+
+    ValueEventListener itemseventListener;
+
+    public void getMyItems(final GetMyItemsListener listener) {
+        ///change the path--if it makes problems -> add the currnet user in the function
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Users").child(getCurrentUser().getUid()).child("items");
+
+        itemseventListener = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Item> itemsList = new LinkedList<>();
+
+                for (DataSnapshot iSnapshot: dataSnapshot.getChildren()) {
+                    Item i = iSnapshot.getValue(Item.class);
+                    itemsList.add(i);
+                }
+                listener.onSuccess(itemsList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void cancellGetMyItems() {
+        //change the path
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Users").child(getCurrentUser().getUid()).child("items");
+        stRef.removeEventListener(itemseventListener);
+    }
+
     ///////////////////////////////////////Login//////////////////////////////
 
     public FirebaseUser registerUser(String email,String password){
