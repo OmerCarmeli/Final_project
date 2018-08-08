@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-        profilePicIV=findViewById(R.id.profilePicIV);
+       // profilePicIV=findViewById(R.id.profilePicIV);
     }
 
     Bitmap imageBitmap;

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -31,9 +32,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         progressBar = findViewById(R.id.loginProgressBar);
         progressBar . setVisibility(View.GONE);
-
+        ImageView logo=findViewById(R.id.logoImageView);
+        //logo.setImageResource(R.mipmap.ic_applogo);
         final EditText emailEditText=findViewById(R.id.emailEditText);
         final EditText passwordEditText=findViewById(R.id.passwordEditText);
 

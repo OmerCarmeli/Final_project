@@ -96,8 +96,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="cfd2eb" />
+                                      <entry key="backgroundImage" value="C:\Users\DELL\Desktop\storelogo.PNG" />
                                       <entry key="backgroundLayerName" value="ic_logout_background" />
                                       <entry key="foregroundAssetType" value="TEXT" />
                                       <entry key="foregroundLayerName" value="ic_logout12" />
@@ -107,6 +107,24 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                            <entry key="launcherLegacy">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\DELL\Desktop\storelogo.PNG" />
+                                      <entry key="outputName" value="ic_applogo" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>

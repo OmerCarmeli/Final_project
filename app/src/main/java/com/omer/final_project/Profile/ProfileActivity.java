@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
-    private static final int ACTIVITY_NUM=4;
+    private static final int ACTIVITY_NUM=1;
     boolean backBtn=false;
 
     @Override

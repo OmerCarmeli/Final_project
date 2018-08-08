@@ -180,6 +180,7 @@ public class FeedFragment extends Fragment {
                     TextView itemName= finalConvertView.findViewById(R.id.itemDNameTV);
                     TextView itemPrice= finalConvertView.findViewById(R.id.itemDPriceTV);
                     TextView descripsionTv = finalConvertView.findViewById(R.id.descriptionTV);
+                    TextView itemSizeTv=finalConvertView.findViewById(R.id.itemSizeDTextView);
                     final ImageView userProfilePic= finalConvertView.findViewById(R.id.postUserProfilePic);
                     final ImageView itemPhoto= finalConvertView.findViewById(R.id.itemDPhoto);
 
@@ -187,6 +188,7 @@ public class FeedFragment extends Fragment {
                     itemName.setText(p.getItem().getName());
                     itemPrice.setText("Price: "+p.getItem().getPrice()+"$");
                     descripsionTv.setText(p.getItem().getDescription());
+                    itemSizeTv.setText("Size: "+p.getItem().getSize());
 
                     userProfilePic.setImageResource(R.drawable.ic_android);
                     userProfilePic.setTag(postUser.getUserId());

@@ -15,7 +15,7 @@
         android:text="Email:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
 
     <TextView
         android:id="@+id/textView5"
@@ -48,17 +48,17 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="299dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/logoImageView"
+        android:layout_width="239dp"
+        android:layout_height="158dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/storelogo" />
 
     <Button
         android:id="@+id/signinButton"

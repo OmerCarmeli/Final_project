@@ -300,7 +300,17 @@ public class Model {
             e.printStackTrace();
         }
     }
+    private void addPicureToGallery(File imageFile){
+        //add the picture to the gallery so we dont need to manage the cache size
+        Intent mediaScanIntent = new
+                Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(imageFile);
+        mediaScanIntent.setData(contentUri);
+        HomeActivity.context.sendBroadcast(mediaScanIntent);
+        Log.d(TAG, "9999999999999999addPicureToGallery-added: "+mediaScanIntent.getData().toString());
 
+    }
+/*
     private void addPicureToGallery(File imageFile) {
 
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -310,4 +320,5 @@ public class Model {
         HomeActivity.context.sendBroadcast(mediaScanIntent);
 
     }
+    */
 }

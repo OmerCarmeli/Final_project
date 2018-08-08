@@ -189,12 +189,13 @@ public class DisplayItemsFragment extends Fragment {
             TextView itemNameTV=convertView.findViewById(R.id.itemDNameTV);
             TextView itemPriceTV=convertView.findViewById(R.id.itemDPriceTV);
             TextView itemDescTV=convertView.findViewById(R.id.itemDescriptionDTV);
+            TextView itemSizeTv=convertView.findViewById(R.id.itemSizeTextViewi);
             final ImageView itemPhoto= convertView.findViewById(R.id.itemDPhoto);
 
             itemNameTV.setText(i.getName());
-            itemPriceTV.setText(i.getPrice());
+            itemPriceTV.setText(i.getPrice()+"$");
             itemDescTV.setText(i.getDescription());
-
+            itemSizeTv.setText("Size: "+i.getSize());
             itemPhoto.setTag(i.getName());
             if (i.getPhoto() != null){
                 Model.instance.getImage(i.getPhoto(), new Model.GetImageListener() {
