@@ -1,11 +1,13 @@
 package com.omer.final_project.Login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,8 +40,19 @@ public class LoginActivity extends AppCompatActivity {
         ImageView logo=findViewById(R.id.logoImageView);
         //logo.setImageResource(R.mipmap.ic_applogo);
         final EditText emailEditText=findViewById(R.id.emailEditText);
-        final EditText passwordEditText=findViewById(R.id.passwordEditText);
+        View.OnFocusChangeListener focusChangeListener=new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        };
 
+        emailEditText.setOnFocusChangeListener(focusChangeListener);
+
+        final EditText passwordEditText=findViewById(R.id.passwordEditText);
+        passwordEditText.setOnFocusChangeListener(focusChangeListener);
         final Intent intent=new Intent (this, RegisterActivity .class);
         Button registerButton=findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +87,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     ////////////////////////////////////////////////////////
 
