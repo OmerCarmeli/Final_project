@@ -74,7 +74,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="138" />
+                                                <entry key="scalingPercent" value="137" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -97,20 +97,16 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="15a692" />
+                                      <entry key="backgroundColor" value="cfd2eb" />
+                                      <entry key="backgroundLayerName" value="ic_logout_background" />
                                       <entry key="foregroundAssetType" value="TEXT" />
-                                      <entry key="foregroundLayerName" value="ic_logout1" />
-                                      <entry key="outputName" value="ic_logout" />
+                                      <entry key="foregroundLayerName" value="ic_logout12" />
+                                      <entry key="outputName" value="ic_logout33" />
                                     </map>
                                   </option>
                                 </PersistentState>
                               </value>
                             </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

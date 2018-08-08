@@ -86,11 +86,12 @@ public class DisplayProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 EditProfileFragment fragment=new EditProfileFragment();
-                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.main_container,fragment,"EditProfileFragment");
                 ft.addToBackStack("EditProfileFragment");
+
                 ft.commit();
-                getActivity().getSupportFragmentManager().executePendingTransactions();
+               // getActivity().getSupportFragmentManager().executePendingTransactions();
 
 
             }
@@ -105,7 +106,7 @@ public class DisplayProfileFragment extends Fragment {
                 ft.replace(R.id.main_container,fragment,"DisplayItemsFragment");
                 ft.addToBackStack("DisplayItemsFragment");
                 ft.commit();
-                getActivity().getSupportFragmentManager().executePendingTransactions();
+               // getActivity().getSupportFragmentManager().executePendingTransactions();
 
             }
         });

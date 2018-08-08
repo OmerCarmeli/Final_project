@@ -49,6 +49,7 @@ public class EditItemFragment extends Fragment {
     private EditText itemNameEt;
     private EditText itemPriceEt;
     private EditText itemDescNameEt;
+    private EditText itemSizeET;
     //private EditText userLastNameEt;
     private ImageView itemPhotoIV;
     Bitmap imageBitmap;
@@ -108,6 +109,7 @@ public class EditItemFragment extends Fragment {
         itemPriceEt.setText(thisItem.getPrice());
         itemDescNameEt.setText(thisItem.getDescription());
         itemPhotoIV.setTag(thisItem.getItemId());
+        itemSizeET.setText(thisItem.getSize());
 
         if (thisItem.getPhoto() != null){
             Model.instance.getImage(thisItem.getPhoto(), new Model.GetImageListener() {
@@ -141,6 +143,7 @@ public class EditItemFragment extends Fragment {
         itemNameEt=view.findViewById(R.id.nameEditTexte);
         itemPriceEt=view.findViewById(R.id.itemPriceEditTexte);
         itemDescNameEt=view.findViewById(R.id.descriptionEditTexte);
+        itemSizeET=view.findViewById(R.id.sizeEditTexte);
         itemPhotoIV=view.findViewById(R.id.itemPicIVe);
 
         itemPhotoIV.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +167,7 @@ public class EditItemFragment extends Fragment {
                 final Item item=new Item(itemNameEt.getText().toString(),itemPriceEt.getText().toString());
                 item.setItemId(thisItem.getItemId());
                 item.setDescription(itemDescNameEt.getText().toString());
+                item.setSize(itemSizeET.getText().toString());
 
 
                 if (photoChanged) {

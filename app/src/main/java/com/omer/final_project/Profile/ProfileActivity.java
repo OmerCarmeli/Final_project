@@ -47,9 +47,12 @@ public class ProfileActivity extends AppCompatActivity {
             tran.commit();
             getSupportFragmentManager().executePendingTransactions();
 
+
         }
         setupToolBar();
     }
+
+
     private void setupBottomNavigationView() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.enableNavigation(this, bottomNavigationView);
@@ -58,9 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         menuItem.setChecked(true);
     }
 
-    public void setupToolBarFragment(){
 
-    }
     public void setupToolBar() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.profileToolBar);
@@ -81,16 +82,21 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-        ImageView backAtrrow=findViewById(R.id.backimageView);
+        final ImageView backAtrrow=findViewById(R.id.backimageView);
         Fragment fragment=getSupportFragmentManager().findFragmentByTag("EditProfileFragment");
-        //fragment.isInLayout()
-        //Log.d(TAG, "***************setupToolBar: "+fragment.size());
 
-        if (fragment!=null && fragment.isVisible()){
+        List<Fragment> l=getSupportFragmentManager().getFragments();
+     //   if (l.g)
+        //fragment.isInLayout()
+
+        if (fragment!=null && fragment.isVisible()   ){// isVisible()
+            Log.d(TAG, "***************setupToolBar: "+fragment.isVisible());
+
             backAtrrow.setVisibility(View.VISIBLE);
             backAtrrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    backAtrrow.setVisibility(View.GONE);
                     DisplayProfileFragment fragment=new DisplayProfileFragment();//move out the fragment
                     FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.main_container,fragment,"DisplayProfileFragment");
@@ -100,6 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
         }else {
+            Log.d(TAG, "setupToolBar: Gone");
             backAtrrow.setVisibility(View.GONE);
         }
 

@@ -85,6 +85,7 @@ public class AddPostFragment extends Fragment {
         final EditText itemName=view.findViewById(R.id.nameEditText);
         final EditText itemPrice=view.findViewById(R.id.itemPriceEditText);
         final EditText description=view.findViewById(R.id.descriptionEditText);
+        final EditText itemSizeEt=view.findViewById(R.id.sizeEditText);
 
         itemPicIV=view.findViewById(R.id.itemPicIV);
         itemPicIV.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +115,7 @@ public class AddPostFragment extends Fragment {
                 //add to firebase:
                 final Item item=new Item(name,price);
                 item.setDescription(desc);
+                item.setSize(itemSizeEt.getText().toString());
                 final Post post=new Post(GUser.getUserId(),item);
                 if (imageBitmap != null) {
                     Model.instance.saveImage(imageBitmap, new Model.SaveImageListener() {

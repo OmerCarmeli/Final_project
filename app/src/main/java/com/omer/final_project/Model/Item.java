@@ -15,6 +15,7 @@ public class Item {
     private String photo;
     private String description;
     private String price;
+    private String size;
     //private boolean available;
 
     public Item(){}
@@ -66,5 +67,13 @@ public class Item {
 
     public void setItemId(@NonNull String itemId) {
         this.itemId = itemId;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }
