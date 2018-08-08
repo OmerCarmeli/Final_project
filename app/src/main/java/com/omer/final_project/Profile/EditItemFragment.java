@@ -55,6 +55,7 @@ public class EditItemFragment extends Fragment {
     Bitmap imageBitmap;
     boolean photoChanged=false;
     String userId;
+
     private OnFragmentInteractionListener mListener;
 
     public EditItemFragment() {
@@ -82,6 +83,7 @@ public class EditItemFragment extends Fragment {
             Log.d(TAG, "onCreate: "+mParam2);
         }
 
+
         FirebaseUser currentUser= Model.instance.getCurrentFirebaseUser();
         Log.d(TAG, "onCreate: &&&&&&&&& uid: "+currentUser.getUid());
          userId=currentUser.getUid();
@@ -90,6 +92,7 @@ public class EditItemFragment extends Fragment {
             public void onSuccess(User user) {
                 profileUser = user;
                 thisItem=profileUser.getItem(mParam2);
+                Log.d(TAG, "onSuccess44444444444444444: "+mParam2);
                 Log.d(TAG, "onSuccess44444444444444444: "+thisItem.getItemId());
                 Activity activity = getActivity();
                 if(activity instanceof ProfileActivity){
@@ -192,15 +195,17 @@ public class EditItemFragment extends Fragment {
         });
 
         Button deleteButton=view.findViewById(R.id.deleteButtone);
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             Model.instance.removePost(thisItem,profileUser.getUserId());
-            //getActivity().getSupportFragmentManager().popBackStack();
-
-            finish();
+             getActivity().getSupportFragmentManager().popBackStack();
+            //return ;
+            //finish();
             }
         });
+
         return view;
     }
 

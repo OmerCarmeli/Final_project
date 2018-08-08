@@ -29,6 +29,7 @@ import com.omer.final_project.Model.Post;
 import com.omer.final_project.Model.User;
 import com.omer.final_project.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +43,7 @@ import java.util.List;
 public class DisplayItemsFragment extends Fragment {
 
 
-
+    private static final String TAG = "DisplayItemsFragment";
     private OnFragmentInteractionListener mListener;
     MyAdapter myAdapter=new MyAdapter();
     ListView list ;
@@ -50,7 +51,7 @@ public class DisplayItemsFragment extends Fragment {
     User currentUser;
     String userID;
     String itemID;
-
+    Bundle bundle=new Bundle();
     public DisplayItemsFragment() {
 
     }
@@ -58,7 +59,7 @@ public class DisplayItemsFragment extends Fragment {
 
     public static DisplayItemsFragment newInstance(String param1, String param2) {
         DisplayItemsFragment fragment = new DisplayItemsFragment();
-      //  Bundle args = new Bundle();
+        //  Bundle args = new Bundle();
 
         return fragment;
     }
@@ -81,7 +82,7 @@ public class DisplayItemsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-      View view=inflater.inflate(R.layout.fragment_display_items, container, false);
+        View view=inflater.inflate(R.layout.fragment_display_items, container, false);
 
         list = view.findViewById(R.id.itemsListView);
         list.setAdapter(myAdapter);
@@ -89,16 +90,16 @@ public class DisplayItemsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("TAG","item selected:" + i);
-
-                //build item from view
-                 userID="123";
-
+                Item it = dataModel.getData().getValue().get(i);
+                userID="123";
                 EditItemFragment fragment=new EditItemFragment();
-                Bundle bundle=new Bundle();
+               // Bundle bundle=new Bundle();
+
+                bundle.putString("itemID",it.getItemId());
+                Log.d(TAG, "545454545454onItemClick: "+itemID);
                 bundle.putString("userID","123");
-                bundle.putString("itemID",itemID);
                 fragment.setArguments(bundle);
-                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.main_container,fragment,"EditItemFragment");
                 ft.addToBackStack("EditItemFragment");
                 ft.commit();
@@ -110,7 +111,6 @@ public class DisplayItemsFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction()==MotionEvent.ACTION_MOVE){
-
                 }
                 return false;
             }
@@ -158,6 +158,7 @@ public class DisplayItemsFragment extends Fragment {
 
     class MyAdapter extends BaseAdapter {
 
+        ArrayList<Item> iList=new ArrayList<>();
         public MyAdapter() {
         }
 
@@ -183,9 +184,10 @@ public class DisplayItemsFragment extends Fragment {
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.item_items_list, null);
             }
 
-            final Item i = dataModel.getData().getValue().get(position);;
+            final Item i = dataModel.getData().getValue().get(position);
             //final View finalConvertView = convertView;
             itemID=i.getItemId();
+            Log.d(TAG, "555555555getView: "+itemID);
             TextView itemNameTV=convertView.findViewById(R.id.itemDNameTV);
             TextView itemPriceTV=convertView.findViewById(R.id.itemDPriceTV);
             TextView itemDescTV=convertView.findViewById(R.id.itemDescriptionDTV);
@@ -215,16 +217,12 @@ public class DisplayItemsFragment extends Fragment {
                 @Override
                 public void onSuccess(User user) {
                     currentUser = user;
-
                     //displayitem();
                     TextView itemNameTV=finalConvertView.findViewById(R.id.itemDNameTV);
                     TextView itemPriceTV=finalConvertView.findViewById(R.id.itemDPriceTV);
                     TextView itemDescTV=finalConvertView.findViewById(R.id.itemDescriptionDTV);
                     final ImageView itemPhoto= finalConvertView.findViewById(R.id.itemDPhoto);
-
                     itemNameTV.setText();
-
-
                 }
             },Model.instance.getCurrentFirebaseUser().getUid());
         */
