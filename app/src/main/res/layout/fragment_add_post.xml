@@ -137,7 +137,6 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/itemPriceEditText" />
 

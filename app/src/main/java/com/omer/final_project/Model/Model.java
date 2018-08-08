@@ -224,6 +224,7 @@ public class Model {
 
     public void saveImage(Bitmap imageBitmap, SaveImageListener listener) {
         modelFirebase.saveImage(imageBitmap,listener);
+
     }
 
 
@@ -277,7 +278,7 @@ public class Model {
         return bitmap;
     }
 
-    private void saveImageToFile(Bitmap imageBitmap, String imageFileName){
+    public void saveImageToFile(Bitmap imageBitmap, String imageFileName){
         if (imageBitmap == null) return;
         try {
             File dir = Environment.getExternalStoragePublicDirectory(

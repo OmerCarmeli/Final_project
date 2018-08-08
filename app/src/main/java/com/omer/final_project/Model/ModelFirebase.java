@@ -170,7 +170,7 @@ public class ModelFirebase {
     ValueEventListener itemseventListener;
 
     public void getMyItems(final GetMyItemsListener listener) {
-        ///change the path--if it makes problems -> add the currnet user in the function
+
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Users").child(getCurrentUser().getUid()).child("items");
 
         itemseventListener = stRef.addValueEventListener(new ValueEventListener() {
@@ -193,7 +193,7 @@ public class ModelFirebase {
     }
 
     public void cancellGetMyItems() {
-        //change the path
+
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Users").child(getCurrentUser().getUid()).child("items");
         stRef.removeEventListener(itemseventListener);
     }
@@ -246,7 +246,7 @@ public class ModelFirebase {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         Date d = new Date();
-        String name = ""+ d.getTime();
+        String name =  d.getTime()+".jpg";
        final StorageReference imagesRef = storage.getReference().child("images").child(name);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

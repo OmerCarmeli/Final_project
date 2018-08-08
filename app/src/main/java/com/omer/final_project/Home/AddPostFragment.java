@@ -123,7 +123,7 @@ public class AddPostFragment extends Fragment {
                         public void onDone(String url) {
                             item.setPhoto(url);
                             Log.d(TAG, "%%%%%%%%%%onDone: "+item.getPhoto());
-
+                            Model.instance.saveImageToFile(imageBitmap,url);/////////////////////////
                             GUser.addItemToList(item);
                             Model.instance.addItemToUser(GUser,item);
                             Model.instance.addPost(post);
