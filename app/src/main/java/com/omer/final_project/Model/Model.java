@@ -34,12 +34,14 @@ public class Model {
         modelFirebase.addPost(post);
     }
 
-    public void removePost(Post post){modelFirebase.removePost(post);}
+    public void removePost(Item item,String userId){modelFirebase.removePost(item,userId);}
+
+    //public void removeItem(Item item){modelFirebase.removeItem(item);}
 
     public void addUser(User user){modelFirebase.addUserToDb(user);}
 
     public void addItemToUser(User user ,Item item){modelFirebase.addItemToUser(user,item);}
-
+    public void updateItemToUser(User user ,Item item){modelFirebase.updateItemToUser(user,item);}
     public FirebaseUser getCurrentFirebaseUser(){
         return modelFirebase.getCurrentUser();
 
@@ -56,6 +58,21 @@ public class Model {
                  listener.onSuccess(user);
              }
          },userId);
+    }
+
+
+    public interface getItemListener{
+        public void onSuccess(Item item);
+    }
+
+    public void getItemFormDb(final getUserListener listener, String userId,String itemId ){
+
+        modelFirebase.getUserFromDb(new ModelFirebase.getUserListener() {
+            @Override
+            public void onSuccess(User user) {
+                listener.onSuccess(user);
+            }
+        },userId);
     }
 
     public void signOutUser(){

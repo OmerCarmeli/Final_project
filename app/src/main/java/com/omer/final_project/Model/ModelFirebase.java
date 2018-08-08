@@ -45,9 +45,12 @@ public class ModelFirebase {
         mDatabase.child("Posts").child(post.getPostId()).setValue(post);
     }
 
-    public void removePost(Post post){
-        mDatabase.child("Posts").child(post.getPostId()).removeValue();
+    public void removePost(Item item,String userId){
+        mDatabase.child("Posts").child(item.getItemId()).removeValue();
+        mDatabase.child("Users").child(userId).child("items").child(item.getItemId()).removeValue();
     }
+
+
 
     public void addUserToDb(User user){
         mDatabase.child("Users").child(user.getUserId()).setValue(user);
@@ -84,9 +87,42 @@ public class ModelFirebase {
 
     }
 
+
     public void addItemToUser(User user ,Item item){
 
         mDatabase.child("Users").child(user.getUserId()).child("items").child(item.getItemId()).setValue(item);
+
+    }
+    public void updateItemToUser(User user ,Item item){
+        Post post=new Post(user.getUserId(),item);
+        post.setPostId(item.getItemId());
+        post.setPostName(item.getName());
+        mDatabase.child("Users").child(user.getUserId()).child("items").child(item.getItemId()).setValue(item);
+        mDatabase.child("Posts").child(post.getPostId()).setValue(post);
+
+    }
+    interface getItemListener{
+        public void onSuccess(Item item);
+    }
+
+    public void getItemFromDb(final getItemListener listener,String userId,String itemId){
+        DatabaseReference userRef=mDatabase.child("Users").child(userId).child("items").child(itemId);//chang to current user
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Item userformDB =dataSnapshot.getValue(Item.class);
+                listener.onSuccess(userformDB);
+                //u=new User(userformDB);
+                // u=userformDB;
+                //    Log.d(TAG, "^^^^^^^^^^^^^^onDataChange: "+u.getUserName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
     public void signOut(){

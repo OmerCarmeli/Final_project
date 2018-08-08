@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,13 +24,15 @@ import com.omer.final_project.R;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    ProgressBar progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        progressBar = findViewById(R.id.loginProgressBar);
+        progressBar . setVisibility(View.GONE);
 
         final EditText emailEditText=findViewById(R.id.emailEditText);
         final EditText passwordEditText=findViewById(R.id.passwordEditText);
@@ -56,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+
                 String email=emailEditText.getText().toString();
                 String password=passwordEditText.getText().toString();
 

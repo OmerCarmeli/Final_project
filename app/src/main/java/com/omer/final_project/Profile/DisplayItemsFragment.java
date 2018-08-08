@@ -8,8 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -44,6 +48,8 @@ public class DisplayItemsFragment extends Fragment {
     ListView list ;
     ItemsViewModel dataModel;
     User currentUser;
+    String userID;
+    String itemID;
 
     public DisplayItemsFragment() {
 
@@ -60,7 +66,7 @@ public class DisplayItemsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//
         dataModel = ViewModelProviders.of(this).get(ItemsViewModel.class);
         dataModel.getData().observe(this, new Observer<List<Item>>() {
             @Override
@@ -83,8 +89,34 @@ public class DisplayItemsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("TAG","item selected:" + i);
+
+                //build item from view
+                 userID="123";
+
+                EditItemFragment fragment=new EditItemFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("userID","123");
+                bundle.putString("itemID",itemID);
+                fragment.setArguments(bundle);
+                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                ft.replace(R.id.main_container,fragment,"EditItemFragment");
+                ft.addToBackStack("EditItemFragment");
+                ft.commit();
+                getActivity().getSupportFragmentManager().executePendingTransactions();
             }
         });
+/*
+        list.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction()==MotionEvent.ACTION_MOVE){
+
+                }
+                return false;
+            }
+        });
+*/
+
         return view ;
     }
 
@@ -153,7 +185,7 @@ public class DisplayItemsFragment extends Fragment {
 
             final Item i = dataModel.getData().getValue().get(position);;
             //final View finalConvertView = convertView;
-
+            itemID=i.getItemId();
             TextView itemNameTV=convertView.findViewById(R.id.itemDNameTV);
             TextView itemPriceTV=convertView.findViewById(R.id.itemDPriceTV);
             TextView itemDescTV=convertView.findViewById(R.id.itemDescriptionDTV);

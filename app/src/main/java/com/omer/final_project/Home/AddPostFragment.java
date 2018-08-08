@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseUser;
         import com.omer.final_project.Model.Item;
@@ -43,6 +44,7 @@ public class AddPostFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private User GUser;
     private ImageView itemPicIV;
+    ProgressBar progressBar;
 
 
     public AddPostFragment() {
@@ -78,6 +80,8 @@ public class AddPostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_add_post, container, false);
+        progressBar = view.findViewById(R.id.addPostprogressBar);
+        progressBar . setVisibility(View.GONE);
         final EditText itemName=view.findViewById(R.id.nameEditText);
         final EditText itemPrice=view.findViewById(R.id.itemPriceEditText);
         final EditText description=view.findViewById(R.id.descriptionEditText);
@@ -100,7 +104,9 @@ public class AddPostFragment extends Fragment {
         saveButtun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String name=itemName.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
+
+                String name=itemName.getText().toString();
                String price=itemPrice.getText().toString();
                String desc=description.getText().toString();
 

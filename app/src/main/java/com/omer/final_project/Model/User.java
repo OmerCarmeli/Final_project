@@ -87,11 +87,15 @@ public class User {
     }
 
     public void addItemToList(Item item){
-        items.put(item.getName(),item);
+        items.put(item.getItemId(),item);
     }
 
     public String getUserId() {
         return userId;
+    }
+    public Item getItem(String itemId){
+        return items.get(itemId);
+
     }
 
     public void setUserId(String userId) {
