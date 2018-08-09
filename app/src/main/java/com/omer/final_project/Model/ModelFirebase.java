@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,13 +34,6 @@ public class ModelFirebase {
     private static final String TAG = "ModelFirebase";
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-/*
-    public ModelFirebase() {
-      //  DatabaseReference  mDatabase = FirebaseDatabase.getInstance().getReference();
-       // mDatabase.child("test1").setValue("hello");
-        Log.d(TAG, "ModelFirebase:c'tor ");
-    }
-*/
 
     public void addPost(Post post){
         mDatabase.child("Posts").child(post.getPostId()).setValue(post);
@@ -47,7 +41,12 @@ public class ModelFirebase {
 
     public void removePost(Item item,String userId){
         mDatabase.child("Posts").child(item.getItemId()).removeValue();
-        mDatabase.child("Users").child(userId).child("items").child(item.getItemId()).removeValue();
+        mDatabase.child("Users").child(userId).child("items").child(item.getItemId()).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+
+            }
+        }); //.removeValue();
     }
 
 
@@ -64,7 +63,6 @@ public class ModelFirebase {
     interface getUserListener{
         public void onSuccess(User user);
     }
-   // User u;
 
     public void getUserFromDb(final getUserListener listener,String userId){
         DatabaseReference userRef=mDatabase.child("Users").child(userId);//chang to current user
@@ -74,9 +72,7 @@ public class ModelFirebase {
 
                 User userformDB =dataSnapshot.getValue(User.class);
                listener.onSuccess(userformDB);
-                //u=new User(userformDB);
-               // u=userformDB;
-            //    Log.d(TAG, "^^^^^^^^^^^^^^onDataChange: "+u.getUserName());
+
             }
 
             @Override
@@ -113,9 +109,7 @@ public class ModelFirebase {
 
                 Item userformDB =dataSnapshot.getValue(Item.class);
                 listener.onSuccess(userformDB);
-                //u=new User(userformDB);
-                // u=userformDB;
-                //    Log.d(TAG, "^^^^^^^^^^^^^^onDataChange: "+u.getUserName());
+
             }
 
             @Override
@@ -260,8 +254,6 @@ public class ModelFirebase {
                 if (!task.isSuccessful()) {
                     throw task.getException();
                 }
-
-                // Continue with the task to get the download URL
                 return imagesRef.getDownloadUrl();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -278,15 +270,7 @@ public class ModelFirebase {
                 }
             }
         });
-        /*
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                listener.onDone(downloadUrl.toString());
-            }
-        });
-        */
+
     }
 
 

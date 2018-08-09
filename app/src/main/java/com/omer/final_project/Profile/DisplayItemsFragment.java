@@ -18,10 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.omer.final_project.Home.FeedViewModel;
 import com.omer.final_project.Model.Item;
 import com.omer.final_project.Model.Model;
@@ -48,7 +50,7 @@ public class DisplayItemsFragment extends Fragment {
     MyAdapter myAdapter=new MyAdapter();
     ListView list ;
     ItemsViewModel dataModel;
-    User currentUser;
+    FirebaseUser currentUser;
     String userID;
     String itemID;
     Bundle bundle=new Bundle();
@@ -67,7 +69,7 @@ public class DisplayItemsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
+        currentUser=Model.instance.getCurrentFirebaseUser();
         dataModel = ViewModelProviders.of(this).get(ItemsViewModel.class);
         dataModel.getData().observe(this, new Observer<List<Item>>() {
             @Override
@@ -209,26 +211,18 @@ public class DisplayItemsFragment extends Fragment {
                     }
                 });
             }
+/*
+            final Button dButton=convertView.findViewById(R.id.Dbutton);
+            dButton.setTag(i);
 
-
-            //////////////////////////////////////////////////////////////////////
-            /*
-            Model.instance.getUserFormDb(new Model.getUserListener() {
+            dButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onSuccess(User user) {
-                    currentUser = user;
-                    //displayitem();
-                    TextView itemNameTV=finalConvertView.findViewById(R.id.itemDNameTV);
-                    TextView itemPriceTV=finalConvertView.findViewById(R.id.itemDPriceTV);
-                    TextView itemDescTV=finalConvertView.findViewById(R.id.itemDescriptionDTV);
-                    final ImageView itemPhoto= finalConvertView.findViewById(R.id.itemDPhoto);
-                    itemNameTV.setText();
+                public void onClick(View v) {
+                    Model.instance.removePost((Item)dButton.getTag(),currentUser.getUid());
+                    getActivity().getSupportFragmentManager().popBackStack();
                 }
-            },Model.instance.getCurrentFirebaseUser().getUid());
-        */
-
-
-
+            });
+*/
 
             return convertView;
         }

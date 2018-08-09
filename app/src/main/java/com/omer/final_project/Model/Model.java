@@ -86,24 +86,18 @@ public class Model {
         @Override
         protected void onActive() {
             super.onActive();
-            // new thread tsks
-            // 1. get the students list from the local DB
+
             PostAsynchDao.getAll(new PostAsynchDao.PostAsynchDaoListener<List<Post>>() {
                 @Override
                 public void onComplete(List<Post> data) {
-                    // 2. update the live data with the new student list
                     setValue(data);
                     Log.d("TAG","got students from local DB " + data.size());
-
-                    // 3. get the posts list from firebase
                     modelFirebase.getAllPosts(new ModelFirebase.GetAllPostsListener() {
                         @Override
                         public void onSuccess(List<Post> postslist) {
-                            // 4. update the live data with the new student list
                             setValue(postslist);
                             Log.d("TAG","got students from firebase " + postslist.size());
 
-                            // 5. update the local DB
                             PostAsynchDao.insertAll(postslist, new PostAsynchDao.PostAsynchDaoListener<Boolean>() {
                                 @Override
                                 public void onComplete(Boolean data) {
@@ -125,7 +119,6 @@ public class Model {
 
         public PostListData() {
             super();
-            //setValue(AppLocalDb.db.studentDao().getAll());
             setValue(new LinkedList<Post>());
         }
     }  /////End of PostLiveData class//////////////////
@@ -145,24 +138,19 @@ public class Model {
         @Override
         protected void onActive() {
             super.onActive();
-            // new thread tsks
-            // 1. get the students list from the local DB
             ItemAsynchDao.getAll(new ItemAsynchDao.ItemAsynchDaoListener<List<Item>>() {
                 @Override
                 public void onComplete(List<Item> data) {
-                    // 2. update the live data with the new student list
                     setValue(data);
                     Log.d("TAG","got students from local DB " + data.size());
 
-                    // 3. get the items list from firebase
                     modelFirebase.getMyItems(new ModelFirebase.GetMyItemsListener() {
                         @Override
                         public void onSuccess(List<Item> itemslist) {
-                            // 4. update the live data with the new student list
+
                             setValue(itemslist);
                             Log.d("TAG","got students from firebase " + itemslist.size());
 
-                            // 5. update the local DB
                             ItemAsynchDao.insertAll(itemslist, new ItemAsynchDao.ItemAsynchDaoListener<Boolean>() {
                                 @Override
                                 public void onComplete(Boolean data) {
@@ -234,22 +222,20 @@ public class Model {
     }
     public void getImage(final String url, final GetImageListener listener ){
        String localFileName = URLUtil.guessFileName(url, null, null);
-        //String localFileName=null;
+
         final Bitmap image = loadImageFromFile(localFileName);
-        if (image == null) {                                      //if image not found - try downloading it from parse
+        if (image == null) {
             modelFirebase.getImage(url, new GetImageListener() {
                 @Override
                 public void onDone(Bitmap imageBitmap) {
                     if (imageBitmap == null) {
                         listener.onDone(null);
                     }else {
-                        //2.  save the image localy
                         String localFileName = URLUtil.guessFileName(url, null, null);
 
 
                         saveImageToFile(imageBitmap, localFileName);
                         Log.d(TAG, "*&*&*&*&*&*&*&*&*&*&*save image to cache: " + localFileName);
-                        //3. return the image using the listener
                         listener.onDone(imageBitmap);
                     }
                 }
@@ -292,8 +278,6 @@ public class Model {
             OutputStream out = new FileOutputStream(imageFile);
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.close();
-
-
            addPicureToGallery(imageFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -302,7 +286,6 @@ public class Model {
         }
     }
     private void addPicureToGallery(File imageFile){
-        //add the picture to the gallery so we dont need to manage the cache size
         Intent mediaScanIntent = new
                 Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri contentUri = Uri.fromFile(imageFile);
@@ -311,15 +294,5 @@ public class Model {
         Log.d(TAG, "9999999999999999addPicureToGallery-added: "+mediaScanIntent.getData().toString());
 
     }
-/*
-    private void addPicureToGallery(File imageFile) {
 
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri contentUri = Uri.fromFile(imageFile);
-        mediaScanIntent.setData(contentUri);
-        Log.d(TAG, "addPicureToGallery: "+mediaScanIntent.getData().toString());
-        HomeActivity.context.sendBroadcast(mediaScanIntent);
-
-    }
-    */
 }

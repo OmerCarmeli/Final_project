@@ -47,7 +47,6 @@ public class HomeActivity extends AppCompatActivity {
                 FeedFragment fragment = new FeedFragment();
                 FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
                 tran.add(R.id.main_container, fragment);
-                // tran.addToBackStack("");
                 tran.commit();
             }
 
@@ -97,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.homeToolBar);
         setSupportActionBar(toolbar);
 
-        Log.d(TAG, "setupToolBar: =======================================================");
+        Log.d(TAG, "setupToolBar:");
         ImageView addPostIV=(ImageView) findViewById(R.id.addPost);
         addPostIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,23 +105,12 @@ public class HomeActivity extends AppCompatActivity {
                 AddPostFragment addPostFragment=new AddPostFragment();
                 FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
                tran.replace(R.id.main_container,addPostFragment);
-               //tran.addToBackStack("");
                tran.commit();
 
 
             }
         });
 
-/*
-        ImageView profileMenu=(ImageView) findViewById(R.id.profileMenu1);
-        profileMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(mContext,AccountSettingsActivity.class);
-                startActivity(intent);
-            }
-        });
- */
 
 
     }

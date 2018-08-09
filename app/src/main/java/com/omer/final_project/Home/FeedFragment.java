@@ -39,7 +39,7 @@ public class FeedFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
 
     private OnFragmentInteractionListener mListener;
-    //List<Post> data = new LinkedList<>();
+
     MyAdapter myAdapter = new MyAdapter();
     ListView list ;
     FeedViewModel dataModel;
@@ -69,15 +69,7 @@ public class FeedFragment extends Fragment {
                 Log.d("TAG","notifyDataSetChanged" + posts.size());
             }
         });
-        /*
-        Model.instance.getAllPosts(new Model.GetAllPostsListener() {
-            @Override
-            public void onSuccess(List<Post> postList) {
-                data = postList;
-                myAdapter.notifyDataSetChanged();
-            }
-        });
-    */
+
 
     }
 
@@ -134,17 +126,12 @@ public class FeedFragment extends Fragment {
     class MyAdapter extends BaseAdapter {
 
         public MyAdapter(){
-            /*
-            Post p1 = new Post("item1",new Item("item one","10.0"));
-           Post p2=new Post("item2",new Item("item two","20"));
-            data.add(p1);
-            data.add(p2);
-            */
+
         }
 
         @Override
         public int getCount() {
-            //return data.size();
+
             Log.d("TAG","list size:" + dataModel.getData().getValue().size());
 
             return dataModel.getData().getValue().size();
@@ -173,8 +160,6 @@ public class FeedFragment extends Fragment {
                 @Override
                 public void onSuccess(User user) {
                     postUser = user;
-
-                    //displayUser();
 
                     TextView userName= finalConvertView.findViewById(R.id.postUserNameTV);
                     TextView itemName= finalConvertView.findViewById(R.id.itemDNameTV);

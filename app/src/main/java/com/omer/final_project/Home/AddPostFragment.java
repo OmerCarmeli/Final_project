@@ -91,8 +91,6 @@ public class AddPostFragment extends Fragment {
         itemPicIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //open camera
                 Intent takePictureIntent = new Intent(
                         MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -112,7 +110,7 @@ public class AddPostFragment extends Fragment {
                String desc=description.getText().toString();
 
                 Log.d(TAG, "onClick: name:"+name+" price:"+price+" description:"+desc );
-                //add to firebase:
+
                 final Item item=new Item(name,price);
                 item.setDescription(desc);
                 item.setSize(itemSizeEt.getText().toString());
@@ -133,13 +131,7 @@ public class AddPostFragment extends Fragment {
                     });
                 }
 
-                //set the photo
-                //add item to user: get current user in on create - make global user-update firebase
-              /*
-                GUser.addItemToList(item);
-                Model.instance.addItemToUser(GUser,item);
-                Model.instance.addPost(post);
-                */
+
             }
         });
 
@@ -147,7 +139,7 @@ public class AddPostFragment extends Fragment {
         cancelButtun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // startActivity(new );
+
                 finish();
             }
         });

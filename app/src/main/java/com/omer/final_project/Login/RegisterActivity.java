@@ -1,5 +1,6 @@
 package com.omer.final_project.Login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,7 +39,14 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        View.OnFocusChangeListener focusChangeListener=new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        };
 
         userName=findViewById(R.id.userNameEditText);
         userEmail=findViewById(R.id.emailEditText);
@@ -45,6 +54,11 @@ public class RegisterActivity extends AppCompatActivity {
         lastName=findViewById(R.id.lastnameEditText);
         userPassword=findViewById(R.id.passwordEditTextREG);
 
+        userName.setOnFocusChangeListener(focusChangeListener);
+        userEmail.setOnFocusChangeListener(focusChangeListener);
+        firstName.setOnFocusChangeListener(focusChangeListener);
+        lastName.setOnFocusChangeListener(focusChangeListener);
+        userPassword.setOnFocusChangeListener(focusChangeListener);
         Button saveButton=findViewById(R.id.regSaveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +115,10 @@ public class RegisterActivity extends AppCompatActivity {
        // profilePicIV=findViewById(R.id.profilePicIV);
     }
 
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     Bitmap imageBitmap;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

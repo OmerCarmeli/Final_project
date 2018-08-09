@@ -110,9 +110,6 @@ public class ProfileActivity extends AppCompatActivity {
             backAtrrow.setVisibility(View.GONE);
         }
 
-        //if (getf)
-
-
 
     }
 
